@@ -1,5 +1,6 @@
+// home.page.ts
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { AnimationController } from '@ionic/angular';
+import { AnimationController, IonTabs } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -8,9 +9,9 @@ import { AnimationController } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   @ViewChild('slideInElement', { read: ElementRef, static: true }) slideInElement!: ElementRef;
+  @ViewChild(IonTabs, { static: true }) tabs!: IonTabs; // Inicializar la referencia a los tabs
 
   usuario: string = ''; // Inicialización de la propiedad usuario
-  integrantes: any[] = []; // Inicialización del arreglo de integrantes
 
   constructor(private animationCtrl: AnimationController) { }
 
@@ -32,6 +33,23 @@ export class HomePage implements OnInit {
 
     animation.play().then(() => {
       console.log('Animación completada');
+    });
+  }
+
+  // Método para manejar la animación al cambiar de tab
+  handleTabChange() {
+    setTimeout(() => {
+      const tabButton = document.querySelector('.tab-selected');
+      if (tabButton) {
+        const animation = this.animationCtrl.create()
+          .addElement(tabButton as HTMLElement)
+          .duration(1000)
+          .fromTo('transform', 'scale(0.5)', 'scale(1)');
+
+        animation.play().then(() => {
+          console.log('Animación completada');
+        });
+      }
     });
   }
 }
