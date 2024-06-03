@@ -1,0 +1,36 @@
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  text-align:center;
+  margin-top: 50px;
+}
+
+h3 {
+  text-align: center;
+}
+
+#usuario{
+  font-size: medium;
+  margin-top: 20px;
+  margin-left: 10px;
+
+}
+
+#info-adicional h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.registro {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+ion-card {
+  display:grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 18px;
+}
+

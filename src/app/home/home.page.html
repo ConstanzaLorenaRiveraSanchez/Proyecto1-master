@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <div id="usuario">
+    <h1>¡Hola! {{ usuario }} 👋</h1>
+    <h3>Bienvenidx a casa</h3>
+  </div>
+
+  <div id="integrantes" #slideInElement>
+    <ion-card>
+      <img alt="Lucas" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      <ion-card-header>
+        <ion-card-title>Lucas</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <img alt="Emilio" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      <ion-card-header>
+        <ion-card-title>Emilio</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <img alt="Javiera" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      <ion-card-header>
+        <ion-card-title>Javiera</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <img alt="Susana" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+      <ion-card-header>
+        <ion-card-title>Susana</ion-card-title>
+      </ion-card-header>
+    </ion-card>
+  </div>
+
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="home">
+        <ion-icon name="home-outline"></ion-icon>
+        <ion-label>Home</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="tareas">
+        <ion-icon name="clipboard-outline"></ion-icon>
+        <ion-label>Tareas</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="compras">
+        <ion-icon name="cart-outline"></ion-icon>
+        <ion-label>Compras</ion-label>
+      </ion-tab-button>
+
+      <ion-tab-button tab="recordatorios">
+        <ion-icon name="notifications-outline"></ion-icon>
+        <ion-label>Recordatorios</ion-label>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

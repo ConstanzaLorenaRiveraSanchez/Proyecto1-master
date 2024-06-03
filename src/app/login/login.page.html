@@ -1,0 +1,32 @@
+
+
+<ion-content [fullscreen]="true">
+
+  <div id="titulo">
+    <h1>Roomie</h1>
+  </div>
+
+  <div id="texto-bienvenida">
+    <p>¡Hola! 👋 </p>
+  </div>
+
+  <div id="login">
+    <!-- nombre y usuario -->
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Usuario</ion-label>
+        <ion-input type="text" [(ngModel)]="usuario"></ion-input>
+      </ion-item>
+      <!-- contraseña -->
+      <ion-item>
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" [(ngModel)]="contrasena"></ion-input>
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-item>
+    </ion-list>
+    <!-- botón para ingresar -->
+    <ion-button expand="block" (click)="ingresar()">Ingresar</ion-button>
+  </div>
+  
+
+</ion-content>
