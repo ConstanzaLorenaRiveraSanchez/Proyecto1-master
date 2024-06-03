@@ -1,3 +1,4 @@
+<!-- home.page.html -->
 <ion-content [fullscreen]="true">
   <div id="usuario">
     <h1>¡Hola! {{ usuario }} 👋</h1>
@@ -31,7 +32,7 @@
     </ion-card>
   </div>
 
-  <ion-tabs>
+  <ion-tabs (ionTabsDidChange)="handleTabChange()">
     <ion-tab-bar slot="bottom">
       <ion-tab-button tab="home">
         <ion-icon name="home-outline"></ion-icon>
