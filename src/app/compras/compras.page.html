@@ -1,8 +1,10 @@
 
 <ion-content [fullscreen]="true">
 
+
   <!-- Lista para contener los elementos del checklist -->
   <ion-list>
+    <h1>Lista de Compras</h1>
     <ion-item *ngFor="let tarea of checklist" (ionChange)="marcarElemento(tarea)">
       <ion-label>{{ tarea }}</ion-label>
       <ion-checkbox slot="start"></ion-checkbox>
