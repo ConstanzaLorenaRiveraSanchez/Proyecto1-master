@@ -1,6 +1,7 @@
-// home.page.ts
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AnimationController, IonTabs } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -9,17 +10,18 @@ import { AnimationController, IonTabs } from '@ionic/angular';
 })
 export class HomePage implements OnInit {
   @ViewChild('slideInElement', { read: ElementRef, static: true }) slideInElement!: ElementRef;
-  @ViewChild(IonTabs, { static: true }) tabs!: IonTabs; // Inicializar la referencia a los tabs
+  @ViewChild(IonTabs, { static: true }) tabs!: IonTabs;
 
-  usuario: string = ''; // Inicialización de la propiedad usuario
+  usuario: string = '';
 
-  constructor(private animationCtrl: AnimationController) { }
+  constructor(private animationCtrl: AnimationController, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    // Obtener el usuario del estado de la navegación
-    const state = window.history.state;
-    if (state && state.usuario) {
-      this.usuario = state.usuario;
+    const usuario = this.authService.getUsuario();
+    if (usuario) {
+      this.usuario = usuario;
+    } else {
+      this.router.navigate(['/login']);
     }
 
     this.slideInAnimation();
@@ -36,7 +38,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Método para manejar la animación al cambiar de tab
   handleTabChange() {
     setTimeout(() => {
       const tabButton = document.querySelector('.tab-selected');
@@ -51,5 +52,10 @@ export class HomePage implements OnInit {
         });
       }
     });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/login']);
   }
 }
