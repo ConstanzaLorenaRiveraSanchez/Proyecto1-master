@@ -1,3 +1,42 @@
+ion-header {
+  ion-toolbar {
+    display: flex;
+    justify-content: space-between; // Asegura que los elementos estén en los extremos opuestos
+    align-items: center; 
+
+    ion-title {
+      font-size: 1.5em;
+      font-weight: bold; 
+      flex: 1;
+    }
+
+    ion-buttons {
+      ion-button {
+        font-size: 0.9em;
+      }
+    }
+  }
+}
+
+.temperatura-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 10px;
+  font-size: 1.2em;
+
+  ion-icon {
+    margin-right: 5px;
+    color: #1295f3; // Color del icono
+    font-size: 1.5em;
+  }
+
+  .temperatura {
+    font-weight: bold;
+  }
+}
+
+
 h1 {
   font-size: 30px;
   font-weight: bold;
@@ -37,3 +76,4 @@ ion-card {
 p {
   text-align: center;
 }
+
