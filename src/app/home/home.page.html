@@ -1,15 +1,18 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      Home
-    </ion-title>
+    <ion-title slot="start">{{ headerTitle }}</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="logout()">Logout</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
+
 <ion-content [fullscreen]="true">
+    <div class="temperatura-container">
+      <ion-icon name="cloudy-night-outline"></ion-icon>
+      <strong class="temperatura">{{ temperatura }} °C</strong>
+    </div>
   <div id="usuario">
     <h1>¡Hola! {{ usuario }} 👋</h1>
     <h3>Bienvenidx a casa</h3>
@@ -41,7 +44,6 @@
       </ion-card-header>
     </ion-card>
     
-    <p>Agregar Nuevo Integrante</p>
   </div>
 
   <ion-tabs (ionTabsDidChange)="handleTabChange()">
