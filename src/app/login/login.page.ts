@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -8,36 +9,38 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
   usuario: string = '';
   contrasena: string = '';
 
-  constructor(private router: Router, private alertController: AlertController) {}
+  constructor(private router: Router, private alertController: AlertController, private authService: AuthService) {}
 
   async ingresar() {
     // Validar campos
     if (this.validarUsuario() && this.validarContrasena()) {
-//  Redirigir a la página home y pasar los datos de usuario
-      this.router.navigate(['/home'], { state: { usuario: this.usuario } });
+      if (this.authService.login(this.usuario, this.contrasena)) {
+        this.router.navigate(['/home']);
+      } else {
+        this.mostrarAlerta('Usuario o contraseña inválidos.');
+      }
     } else {
-      // Mostrar alerta de error
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Usuario o contraseña inválidos.', 
-        buttons: ['Cerrar']
-      });
-      await alert.present();
+      this.mostrarAlerta('Usuario o contraseña inválidos.');
     }
   }
 
   validarUsuario(): boolean {
-    // Validar longitud del usuario (entre 3 y 8 caracteres)
     return this.usuario.length >= 3 && this.usuario.length <= 8;
   }
 
   validarContrasena(): boolean {
-    // Validar longitud de la contraseña (4 dígitos)
     return /^\d{4}$/.test(this.contrasena);
   }
 
+  async mostrarAlerta(mensaje: string) {
+    const alert = await this.alertController.create({
+      header: 'Error',
+      message: mensaje,
+      buttons: ['Cerrar']
+    });
+    await alert.present();
+  }
 }
