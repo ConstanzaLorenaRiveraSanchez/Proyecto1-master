@@ -2,6 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { AnimationController, IonTabs } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { Geolocation } from '@capacitor/geolocation';
+import { ApisService } from '../services/apis.service'; 
+import { ClimaModel } from '../models/clima.model'; 
 
 @Component({
   selector: 'app-home',
@@ -13,10 +16,37 @@ export class HomePage implements OnInit {
   @ViewChild(IonTabs, { static: true }) tabs!: IonTabs;
 
   usuario: string = '';
+  temperatura: string = '';
+  headerTitle: string = ''; 
 
-  constructor(private animationCtrl: AnimationController, private authService: AuthService, private router: Router) { }
+
+  constructor(private apisService: ApisService, private animationCtrl: AnimationController, private authService: AuthService, private router: Router, ) { }
 
   ngOnInit() {
+    this.checkUsuarioAndAnimate();
+    this.printCurrentPosition();
+  }
+
+  async printCurrentPosition() {
+    try {
+      const coordinates = await Geolocation.getCurrentPosition();
+      console.log('Current position:', coordinates);
+  
+      // Obtener el clima utilizando las coordenadas
+      const clima = await this.apisService.obtenerClima(
+        coordinates.coords.longitude.toString(),
+        coordinates.coords.latitude.toString()
+      );
+  
+      // Actualizar la temperatura en tu componente
+      this.temperatura = clima.current_weather.temperature.toString();
+    } catch (error) {
+      console.error('Error intentando encontrar geolocalizacion', error);
+    }
+  }
+  
+
+  checkUsuarioAndAnimate() {
     const usuario = this.authService.getUsuario();
     if (usuario) {
       this.usuario = usuario;
@@ -34,22 +64,26 @@ export class HomePage implements OnInit {
       .fromTo('transform', 'translateX(-100%)', 'translateX(0)');
 
     animation.play().then(() => {
-      console.log('Animación completada');
+      console.log('Slide in animation completed');
     });
   }
 
   handleTabChange() {
-    setTimeout(() => {
-      const tabButton = document.querySelector('.tab-selected');
-      if (tabButton) {
-        const animation = this.animationCtrl.create()
-          .addElement(tabButton as HTMLElement)
-          .duration(1000)
-          .fromTo('transform', 'scale(0.5)', 'scale(1)');
-
-        animation.play().then(() => {
-          console.log('Animación completada');
-        });
+    this.tabs.ionTabsDidChange.subscribe(() => {
+      const selectedTab = this.tabs.getSelected();
+      switch (selectedTab) {
+        case 'home':
+          this.headerTitle = 'Home';
+          break;
+        case 'tareas':
+          this.headerTitle = 'Tareas';
+          break;
+        case 'compras':
+          this.headerTitle = 'Compras';
+          break;
+        case 'recordatorios':
+          this.headerTitle = 'Recordatorios';
+          break;
       }
     });
   }
