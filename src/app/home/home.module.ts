@@ -23,7 +23,7 @@ import { HomePageRoutingModule } from './home-routing.module';
   ],
   declarations: [HomePage],
   providers: [
-    Geolocation // Agregar Geolocation como proveedor aquí
+    Geolocation 
   ]
 })
 export class HomePageModule {}
